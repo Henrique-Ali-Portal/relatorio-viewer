@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { ModalDateContext } from "../../contexts/ModalDateContext";
-import { salvarRelatorioConfigs } from "../utils/utilities";
 import { Trash2, Save } from "lucide-react";
+import { setRelatorio } from "../../services/Relatorios";
 
 function ModalAdicionar() {
   const [nomeRelatorio, setNomeRelatorio] = useState("");
@@ -57,18 +57,14 @@ function ModalAdicionar() {
           </div>
           <div className="flex flex-row gap-4">
             <button
-              onClick={() =>
-                salvarRelatorioConfigs(nomeRelatorio, linkApi, listFuncoes)
-              }
+              onClick={() => setRelatorio(nomeRelatorio, linkApi, listFuncoes)}
               className="cursor-pointer py-1 w-full font-bold bg-red-700 text-white border border-red-950 rounded-md flex flex-row items-center justify-center gap-2"
             >
               <h1>Remover</h1>
               <Trash2 />
             </button>
             <button
-              onClick={() =>
-                salvarRelatorioConfigs(nomeRelatorio, linkApi, listFuncoes)
-              }
+              onClick={() => setRelatorio(nomeRelatorio, linkApi, listFuncoes)}
               className="cursor-pointer py-1 w-full font-bold bg-green-700 text-white border border-green-800 rounded-md flex flex-row items-center justify-center gap-2"
             >
               <h1>Salvar</h1>

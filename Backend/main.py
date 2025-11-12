@@ -17,26 +17,36 @@ app.add_middleware(
 )
 
 class Relatorio(BaseModel):
+    uuid: str
     nome: str
     link: str
     funcoes: str
 
+
 @app.get("/relatorios")
 def listar_arquivos():
-  pasta = os.path.join(os.path.dirname(__file__), "Configs")
-  arquivos = [os.path.splitext(f)[0] for f in os.listdir(pasta) if os.path.isfile(os.path.join(pasta, f))]
-  return {"arquivos": arquivos}
+    pasta = os.path.join(os.path.dirname(__file__), "Configs")
+    arquivos = []
+
+    for f in os.listdir(pasta):
+        caminho = os.path.join(pasta, f)
+        if os.path.isfile(caminho) and f.lower().endswith(".json"):
+            with open(caminho, "r", encoding="utf-8") as arq:
+                dados = json.load(arq)
+                nome = dados.get("nome")
+                uuid = dados.get("uuid")
+                arquivos.append({"nome": nome, "uuid": uuid})
+
+    return {"arquivos": arquivos}
 
 
 @app.post("/relatorios/salvar")
 def salvar_novo_relatorio(relatorio: Relatorio):
     os.makedirs("configs", exist_ok=True)
-    nome_arquivo = f"configs/{relatorio.nome.replace(' ', '')}.json"
-
     data_inicio, data_fim, tipo_relatorio = read_file(relatorio.link)
 
-    dados = {"nome": relatorio.nome, "link": relatorio.link, "funcoes": relatorio.funcoes, "data_inicio": data_inicio, "data_fim": data_fim, "tipo_relatorio": tipo_relatorio}
-    with open(nome_arquivo, "w", encoding="utf-8") as f:
+    dados = {"uuid": relatorio.uuid, "nome": relatorio.nome, "link": relatorio.link, "funcoes": relatorio.funcoes, "data_inicio": data_inicio, "data_fim": data_fim, "tipo_relatorio": tipo_relatorio}
+    with open("Configs/" + relatorio.uuid + ".json", "w", encoding="utf-8") as f:
         json.dump(dados, f, ensure_ascii=False, indent=4)
 
-    return {"mensagem": f"Arquivo {nome_arquivo} salvo com sucesso!"}
+    return {"mensagem": f"Arquivo salvo com sucesso!"}

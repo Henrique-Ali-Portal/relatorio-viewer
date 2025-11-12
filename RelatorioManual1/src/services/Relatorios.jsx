@@ -7,7 +7,7 @@ export async function getRelatorio() {
       throw new Error("Falha ao buscar os relatórios");
     }
     const data = await res.json();
-    return data.arquivos || [];
+    return data.arquivos.map((ind) => ind.nome);
   } catch (err) {
     throw err;
   }
@@ -15,10 +15,12 @@ export async function getRelatorio() {
 
 export async function setRelatorio(nome, link, funcoes) {
   try {
+    const uuid = crypto.randomUUID();
     const res = await fetch(base + "/relatorios/salvar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        uuid: uuid,
         nome: nome,
         link: link,
         funcoes: funcoes,
