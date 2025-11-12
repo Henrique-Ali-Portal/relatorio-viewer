@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.rdrMonth {
+  width: 100% !important;
+}
+
+.rdrDayNumber {
+  color: black;
+}
