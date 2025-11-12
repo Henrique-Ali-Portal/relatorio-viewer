@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
+from utils import read_file
 
 
 app = FastAPI()
@@ -31,7 +32,11 @@ def listar_arquivos():
 def salvar_novo_relatorio(relatorio: Relatorio):
     os.makedirs("configs", exist_ok=True)
     nome_arquivo = f"configs/{relatorio.nome.replace(' ', '')}.json"
-    dados = {"nome": relatorio.nome, "link": relatorio.link, "funcoes": relatorio.funcoes}
+
+    data_inicio, data_fim, tipo_relatorio = read_file(relatorio.link)
+
+    dados = {"nome": relatorio.nome, "link": relatorio.link, "funcoes": relatorio.funcoes, "data_inicio": data_inicio, "data_fim": data_fim, "tipo_relatorio": tipo_relatorio}
     with open(nome_arquivo, "w", encoding="utf-8") as f:
         json.dump(dados, f, ensure_ascii=False, indent=4)
+
     return {"mensagem": f"Arquivo {nome_arquivo} salvo com sucesso!"}
