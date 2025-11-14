@@ -4,7 +4,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./styles/index.css";
 import App from "./App.jsx";
 import Adicionar from "./pages/Adicionar.jsx";
-import { ModalDateProvider } from "./contexts/ModalDateProvider.jsx";
+import { GeralProvider } from "./contexts/GeralProvider.jsx";
+import { AdicionarProvider } from "./contexts/AdicionarProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,14 +14,18 @@ const router = createBrowserRouter([
   },
   {
     path: "/Adicionar",
-    element: <Adicionar />,
+    element: (
+      <AdicionarProvider>
+        <Adicionar />
+      </AdicionarProvider>
+    ),
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ModalDateProvider>
+    <GeralProvider>
       <RouterProvider router={router} />
-    </ModalDateProvider>
+    </GeralProvider>
   </StrictMode>
 );

@@ -1,4 +1,4 @@
-const base = "http://localhost:8000";
+const base = "http://localhost:8001";
 
 export async function getRelatorio() {
   try {
@@ -7,7 +7,8 @@ export async function getRelatorio() {
       throw new Error("Falha ao buscar os relatórios");
     }
     const data = await res.json();
-    return data.arquivos.map((ind) => ind.nome);
+    console.log(data.arquivos);
+    return data.arquivos;
   } catch (err) {
     throw err;
   }

@@ -1,7 +1,9 @@
 import { useState, useMemo } from "react";
-import { ModalDateContext } from "./ModalDateContext";
+import { createContext } from "react";
 
-export const ModalDateProvider = ({ children }) => {
+export const GeralContext = createContext();
+
+export const GeralProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
 
@@ -16,8 +18,6 @@ export const ModalDateProvider = ({ children }) => {
   );
 
   return (
-    <ModalDateContext.Provider value={value}>
-      {children}
-    </ModalDateContext.Provider>
+    <GeralContext.Provider value={value}>{children}</GeralContext.Provider>
   );
 };

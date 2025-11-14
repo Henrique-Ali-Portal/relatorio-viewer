@@ -1,5 +1,6 @@
 {
-    "nome": "Testando Pedido Analitico",
-    "link": "https://projeto986.objectdata.com.br/app/relatorio/lucratividade/pedido_analitico/indexPerform?autolist%5Bcliente%5D&autolist%5Bvendedor%5D&crediario=false&data_conclusao_fim=30%2F11%2F2025&data_conclusao_inicio=01%2F11%2F2025&devolucao=true&empresa_id%5B1%5D=5&empresa_id%5B2%5D=11&empresa_id%5B3%5D=10&empresa_id%5B4%5D=9&empresa_id%5B5%5D=1&empresa_id%5B6%5D=4&empresa_id%5B7%5D=7&empresa_id%5B8%5D=3&empresa_id%5B9%5D=6&empresa_id%5B10%5D=8&empresa_id%5B11%5D=12&estado&faturado&format=xlsx&nota_fiscal&numero",
-    "funcoes": ""
+  "uuid": "170cb94e-1210-406c-b366-c231e6df79cbf88",
+  "nome": "Testando Pedido Analitico",
+  "link": "https://projeto986.objectdata.com.br/app/relatorio/lucratividade/pedido_analitico/indexPerform?autolist%5Bcliente%5D&autolist%5Bvendedor%5D&crediario=false&data_conclusao_fim=30%2F11%2F2025&data_conclusao_inicio=01%2F11%2F2025&devolucao=true&empresa_id%5B1%5D=5&empresa_id%5B2%5D=11&empresa_id%5B3%5D=10&empresa_id%5B4%5D=9&empresa_id%5B5%5D=1&empresa_id%5B6%5D=4&empresa_id%5B7%5D=7&empresa_id%5B8%5D=3&empresa_id%5B9%5D=6&empresa_id%5B10%5D=8&empresa_id%5B11%5D=12&estado&faturado&format=xlsx&nota_fiscal&numero",
+  "funcoes": ""
 }

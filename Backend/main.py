@@ -35,7 +35,9 @@ def listar_arquivos():
                 dados = json.load(arq)
                 nome = dados.get("nome")
                 uuid = dados.get("uuid")
-                arquivos.append({"nome": nome, "uuid": uuid})
+                link = dados.get("link")
+                funcoes = dados.get("funcoes")
+                arquivos.append({"nome": nome, "uuid": uuid, "link": link, "funcoes": funcoes})
 
     return {"arquivos": arquivos}
 

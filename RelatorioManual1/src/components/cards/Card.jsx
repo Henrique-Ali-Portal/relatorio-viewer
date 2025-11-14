@@ -1,8 +1,7 @@
 import { useContext } from "react";
-import { ModalDateContext } from "../../contexts/ModalDateContext";
-
-function CardAdicionar({ title }) {
-  const { setIsModalOpen, setModalTitle } = useContext(ModalDateContext);
+import { GeralContext } from "../../contexts/GeralProvider";
+function Card({ title, uuid }) {
+  const { setIsModalOpen, setModalTitle } = useContext(GeralContext);
 
   return (
     <button
@@ -19,4 +18,4 @@ function CardAdicionar({ title }) {
   );
 }
 
-export default CardAdicionar;
+export default Card;
