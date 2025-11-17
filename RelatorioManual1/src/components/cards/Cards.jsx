@@ -12,16 +12,16 @@ function Cards() {
   if (location === "/adicionar") {
     const { relatorios } = useContext(AdicionarContext);
     infos = relatorios.map(({ nome, uuid }) => ({ nome, uuid }));
-    conteudo = <Card title="+" />;
+    console.log(relatorios);
+    infos.unshift({ nome: "+", uuid: null });
+    //conteudo = <Card title="+" />;
   }
 
   return (
     <div className="gap-5 flex m-8">
-      {conteudo}
-      {infos.length > 0 &&
-        infos.map((title, index) => (
-          <Card key={index} title={title} uuid={uuid} />
-        ))}
+      {infos.map((info, index) => (
+        <Card key={index} title={info.nome} uuid={info.uuid} />
+      ))}
     </div>
   );
 }

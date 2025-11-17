@@ -16,12 +16,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 class Relatorio(BaseModel):
     uuid: str
     nome: str
     link: str
     funcoes: str
 
+
+class DelRelatorio(BaseModel):
+    uuid: str
 
 @app.get("/relatorios")
 def listar_arquivos():
@@ -37,15 +41,33 @@ def listar_arquivos():
                 uuid = dados.get("uuid")
                 link = dados.get("link")
                 funcoes = dados.get("funcoes")
-                arquivos.append({"nome": nome, "uuid": uuid, "link": link, "funcoes": funcoes})
+                if dados.get("cancelado") is None or dados.get("cancelado") is False :
+                    arquivos.append({"nome": nome, "uuid": uuid, "link": link, "funcoes": funcoes})
 
     return {"arquivos": arquivos}
+
+
+@app.delete("/relatorios/deletar")
+def deletar_relatorio(delrelatorio: DelRelatorio):
+    pasta = os.path.join(os.path.dirname(__file__), "Configs")
+
+    for f in os.listdir(pasta):
+        caminho = os.path.join(pasta, f)
+        if os.path.isfile(caminho) and f.rsplit(".", 1)[0] == delrelatorio.uuid:
+            with open(caminho, "r", encoding="utf-8") as file:
+                dados = json.load(file)
+
+            dados["cancelado"] = True
+
+            with open(caminho, "w", encoding="utf-8") as file:
+                json.dump(dados, file, ensure_ascii=False, indent=4)
 
 
 @app.post("/relatorios/salvar")
 def salvar_novo_relatorio(relatorio: Relatorio):
     os.makedirs("configs", exist_ok=True)
-    data_inicio, data_fim, tipo_relatorio = read_file(relatorio.link)
+    print(relatorio)
+    data_inicio, data_fim, tipo_relatorio = read_file(relatorio.link) or ("", "", "")
 
     dados = {"uuid": relatorio.uuid, "nome": relatorio.nome, "link": relatorio.link, "funcoes": relatorio.funcoes, "data_inicio": data_inicio, "data_fim": data_fim, "tipo_relatorio": tipo_relatorio}
     with open("Configs/" + relatorio.uuid + ".json", "w", encoding="utf-8") as f:

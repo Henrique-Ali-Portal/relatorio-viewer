@@ -14,24 +14,48 @@ export async function getRelatorio() {
   }
 }
 
-export async function setRelatorio(nome, link, funcoes) {
+export async function delRelatorio(uuid) {
   try {
-    const uuid = crypto.randomUUID();
+    const dados = {
+      uuid: uuid,
+    };
+    const res = await fetch(base + "/relatorios/deletar", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dados),
+    });
+    if (!res.ok) {
+      throw new Error("Falha ao deletar relatório");
+    }
+    const data = await res.json();
+    console.log(dados);
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function setRelatorio(uuid, nome, link, funcoes) {
+  try {
+    if (uuid === "") {
+      uuid = crypto.randomUUID();
+    }
+    const dados = {
+      uuid: uuid,
+      nome: nome,
+      link: link,
+      funcoes: funcoes,
+    };
     const res = await fetch(base + "/relatorios/salvar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        uuid: uuid,
-        nome: nome,
-        link: link,
-        funcoes: funcoes,
-      }),
+      body: JSON.stringify(dados),
     });
     if (!res.ok) {
       throw new Error("Falha ao salvar novo relatório");
     }
     const data = await res.json();
-    return data.arquivos;
+    console.log(dados);
+    return dados;
   } catch (err) {
     throw err;
   }

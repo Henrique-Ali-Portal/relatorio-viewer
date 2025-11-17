@@ -5,16 +5,16 @@ export const GeralContext = createContext();
 
 export const GeralProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("");
+  const [modalInfos, setModalInfos] = useState([]);
 
   const value = useMemo(
     () => ({
       isModalOpen,
       setIsModalOpen,
-      modalTitle,
-      setModalTitle,
+      modalInfos,
+      setModalInfos,
     }),
-    [isModalOpen, modalTitle]
+    [isModalOpen]
   );
 
   return (

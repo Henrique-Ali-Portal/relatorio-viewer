@@ -2,13 +2,15 @@ import { useContext, useState } from "react";
 import { GeralContext } from "../../contexts/GeralProvider";
 import { Trash2, Save } from "lucide-react";
 import { setRelatorio } from "../../services/Relatorios";
+import { AdicionarContext } from "../../contexts/AdicionarProvider";
 
 function ModalTeste({ children }) {
   const [nomeRelatorio, setNomeRelatorio] = useState("");
   const [linkApi, setLinkApi] = useState("");
   const [listFuncoes, setListaFuncoes] = useState("");
 
-  const { setIsModalOpen, modalTitle } = useContext(GeralContext);
+  const { setIsModalOpen, modalInfos } = useContext(GeralContext);
+  const { relatorios } = useContext(AdicionarContext);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center">
@@ -16,7 +18,7 @@ function ModalTeste({ children }) {
         <div className="shadow-[0_1px_5px_rgba(0,0,0,0.15)] mb-4">
           <div className="flex items-center justify-between px-6 py-2">
             <h1 className="text-2xl font-bold">
-              {modalTitle === "+" ? "Adicionar" : modalTitle}
+              {modalInfos.nome === "" ? "Adicionar" : modalInfos.nome}
             </h1>
             <button
               onClick={() => setIsModalOpen(false)}
